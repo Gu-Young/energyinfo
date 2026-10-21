@@ -552,3 +552,7 @@ h1, h2, .sec-head h2, .interest h3, .area h3 { text-wrap: balance; }
 /* 연구 방향 띠: 한 줄 설명 */
 .pillars .p small { font-size: 14px; font-weight: 400; color: var(--muted); line-height: 1.55; margin-top: 2px; }
 .pillars .p span:nth-child(2) { font-size: 18px; font-weight: 700; }
+
+/* 머리 문장·소개문 줄 길이를 고르게, 키워드는 키워드 사이에서만 줄바꿈 */
+.banner p, .hero .desc { text-wrap: balance; }
+.area-row .kw .nowrap { white-space: nowrap; }
