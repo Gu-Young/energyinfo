@@ -79,13 +79,21 @@
     var m = String(s || '').match(/(\d{4})\D+(\d{1,2})\D+(\d{1,2})/);
     return m ? m[1] + '. ' + ('0' + m[2]).slice(-2) + '. ' + ('0' + m[3]).slice(-2) + '.' : esc(s);
   }
+  // 사진: 파일 이름(사이트에 올린 사진), 구글 드라이브 공유 링크, 일반 이미지 주소를 모두 받습니다.
   function imgSrc(name, dir) {
     name = String(name || '').trim();
     if (!name) return '';
+    var drive = name.match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=\w+&)?id=)([\w-]{20,})/);
+    if (drive) return 'https://lh3.googleusercontent.com/d/' + drive[1] + '=w1600';
     return /^https?:\/\//.test(name) ? name : 'assets/img/' + dir + '/' + name;
   }
+  // 날짜: 2026-09-06, 2026.9.6, 2026. 9. 6. 등 어떤 형식으로 적어도 YYYY-MM-DD로 맞춥니다.
+  function normDate(s) {
+    var m = String(s || '').match(/(\d{4})\D+(\d{1,2})\D+(\d{1,2})/);
+    return m ? m[1] + '-' + ('0' + m[2]).slice(-2) + '-' + ('0' + m[3]).slice(-2) : String(s || '');
+  }
   function splitList(s) {
-    return String(s || '').split(/[;\n]/).map(function (x) { return x.trim(); }).filter(Boolean);
+    return String(s || '').split(/[;,\n]/).map(function (x) { return x.trim(); }).filter(Boolean);
   }
   function setBusy(el, on) { if (el) el.setAttribute('aria-busy', on ? 'true' : 'false'); }
 
@@ -194,7 +202,7 @@
   }
 
   function toNews(r) {
-    return { id: r[0], date: r[1], title: r[2], photos: splitList(r[3]).map(function (n) { return imgSrc(n, 'news'); }), link: r[4] };
+    return { id: r[0], date: normDate(r[1]), title: r[2], photos: splitList(r[3]).map(function (n) { return imgSrc(n, 'news'); }), link: r[4] };
   }
   function sortNews(list) {
     return list.slice().sort(function (a, b) { return String(b.date).localeCompare(String(a.date)) || -byIdNum(a, b); });
