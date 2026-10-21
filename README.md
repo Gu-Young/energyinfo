@@ -1,7 +1,7 @@
 # 에너지정보처리연구실 홈페이지
 
 국립공주대학교 에너지정보처리연구실(Energy Informatics Laboratory) 홈페이지입니다.
-GitHub Pages로 공개되며(https://gu-young.github.io/energyinfo/), 논문·특허·과제·소식·구성원 목록은 **공개 구글 시트**에서 가져옵니다.
+GitHub Pages로 공개되며(https://eil-knu.github.io/), 논문·특허·과제·소식·구성원 목록은 **공개 구글 시트**에서 가져옵니다.
 
 ## 내용 고치는 법 (대부분 이것만 하면 됩니다)
 

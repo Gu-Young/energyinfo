@@ -15,9 +15,9 @@ NAV = [
     ("research", "Research"), ("publications", "Publications"), ("news", "Lab News"), ("contact", "Contact"),
 ]
 SITE = "에너지정보처리연구실 | Energy Informatics Laboratory"
-VERSION = "20261021t"
+VERSION = "20261022a"
 # 공개 주소가 정해지면 적어 주세요 (예: "https://eil-knu.github.io"). 공유 미리보기 이미지에 쓰입니다.
-SITE_URL = "https://gu-young.github.io/energyinfo"
+SITE_URL = "https://eil-knu.github.io"
 
 HEAD = """<!doctype html>
 <html lang="ko">
