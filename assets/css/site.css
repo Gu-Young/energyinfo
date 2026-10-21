@@ -268,7 +268,7 @@ a.pub-title:hover { color: var(--teal); }
 /* ---------- About ---------- */
 .intro { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 32px 52px; align-items: center; }
 .intro .txt { display: flex; flex-direction: column; gap: 16px; font-size: 16.5px; color: var(--muted); line-height: 1.8; }
-.intro img { aspect-ratio: 4 / 3; object-fit: cover; width: 100%; border-radius: 4px; }
+.intro img { aspect-ratio: 4 / 3; object-fit: cover; width: 100%; height: auto; border-radius: 4px; }
 .pillars { background: var(--bg-mint); border-top: 1px solid #D3E7E3; border-bottom: 1px solid #D3E7E3; }
 .pillars .wrap { padding-top: 40px; padding-bottom: 40px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px 40px; }
 .pillars .p { display: flex; flex-direction: column; gap: 6px; color: var(--navy); }
