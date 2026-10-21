@@ -545,3 +545,10 @@ h1, h2, .sec-head h2, .interest h3, .area h3 { text-wrap: balance; }
 .proj .agency { min-height: 64px; }
 /* 구성원 사진: 흰 배경 사진도 틀이 보이도록 */
 .mem img { border: 1px solid var(--line); background: var(--bg-soft); }
+/* 관심 분야 4개: 2×2 */
+.interest-grid.four { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.interest-grid.four > .interest, .interest-grid.four > .interest:nth-child(n+4) { grid-column: auto; }
+@media (max-width: 560px) { .interest-grid.four { grid-template-columns: 1fr; } }
+/* 연구 방향 띠: 한 줄 설명 */
+.pillars .p small { font-size: 14px; font-weight: 400; color: var(--muted); line-height: 1.55; margin-top: 2px; }
+.pillars .p span:nth-child(2) { font-size: 18px; font-weight: 700; }
