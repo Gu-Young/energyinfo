@@ -256,14 +256,20 @@
     });
   }
   function homePubs(el) {
-    load('papers', function (rows) {
-      var list = sortPapers(rows.map(toPaper).filter(function (p) { return p.kind === '국제 저널'; })).slice(0, 4);
+    var list = null;
+    function draw() {
+      if (!list) return;
       el.innerHTML = list.map(function (p) {
         return '<li><span class="yr">' + esc(p.year) + '</span><div class="pub-body">' + pubItem(p) + '</div></li>';
       }).join('');
       setBusy(el, false);
       reveal(el);
+    }
+    load('papers', function (rows) {
+      list = sortPapers(rows.map(toPaper).filter(function (p) { return p.kind === '국제 저널'; })).slice(0, 4);
+      draw();
     });
+    load('members', function (rows) { setMembers(rows.map(toMember)); draw(); });
   }
   function homeProjects(el) {
     load('projects', function (rows) {
