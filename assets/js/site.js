@@ -55,23 +55,9 @@
   }
 
   /* 로컬 CSV로 먼저 그리고, 시트에 새 내용이 있으면 다시 그립니다. */
-  // 예전 사이트에서 옮겨 온 논문·특허 링크 (ID별). 시트의 DOI/링크 칸에 값이 있으면 시트가 우선합니다.
-  // data/jcr.csv: JCR에서 조회해 둔 IF·상위% (ID별). 시트 L~O열에 값이 있으면 시트가 우선합니다.
-  var LINKS = {}, JCR = {};
-  function side(file, fn) {
-    return fetch('data/' + file, { cache: 'no-cache' })
-      .then(function (r) { return r.ok ? r.text() : ''; })
-      .then(function (t) { parseCSV(t).slice(1).forEach(fn); })
-      .catch(function () {});
-  }
-  var linksReady = Promise.all([
-    side('links.csv', function (r) { if (r[0] && r[1]) LINKS[r[0]] = r[1]; }),
-    side('jcr.csv', function (r) { if (r[0]) JCR[r[0]] = r.slice(1); })
-  ]);
-
   function load(name, render) {
     var d = DATASETS[name], localKey = null;
-    var local = linksReady.then(function () { return fetch('data/' + d.file, { cache: 'no-cache' }); })
+    var local = fetch('data/' + d.file, { cache: 'no-cache' })
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
       .then(function (t) {
         var rows = parseCSV(t);
@@ -106,15 +92,16 @@
   /* ---------- 데이터 → 객체 ---------- */
   function toPaper(r) {
     return { id: r[0], kind: r[1], year: r[2], month: r[3], title: r[4], authors: r[5],
-             venue: r[6], vol: r[7], no: r[8], pages: r[9], doi: r[10] || LINKS[r[0]] || '',
-             // 시트 L~O열: 최신 IF, 최신 JCR 상위%, 출판연도 IF, 출판연도 JCR 상위%
-             ifNow: r[11] || jc(r[0], 0), rankNow: r[12] || jc(r[0], 1), ifPub: r[13] || jc(r[0], 2), rankPub: r[14] || jc(r[0], 3) };
+             venue: r[6], vol: r[7], no: r[8], pages: r[9], doi: r[10],
+             // 공개 시트 L~O열: 최신 IF, 최신 JCR 상위%, 출판연도 IF, 출판연도 JCR 상위% (화면에는 최신 값만 표시)
+             ifNow: r[11], rankNow: r[12], ifPub: r[13], rankPub: r[14] };
   }
-  function jc(id, i) { return (JCR[id] && JCR[id][i]) || ''; }
+  // 시트에서 7.0이 7로 내려오므로 소수점 한 자리는 붙여 보여 줍니다.
+  function ifFmt(v) { v = String(v || '').trim(); return /^\d+$/.test(v) ? v + '.0' : v; }
   function pct(v) { v = String(v || '').replace(/%|상위|top/gi, '').trim(); return v ? v + '%' : ''; }
   // 화면에는 최신 IF·JCR 상위%만 표시합니다 (출판연도 값은 시트에만 보관).
   function jcrBadge(p) {
-    var now = [p.ifNow ? 'IF ' + esc(p.ifNow) : '', p.rankNow ? 'JCR 상위 ' + esc(pct(p.rankNow)) : ''].filter(Boolean).join(' · ');
+    var now = [p.ifNow ? 'IF ' + esc(ifFmt(p.ifNow)) : '', p.rankNow ? 'JCR 상위 ' + esc(pct(p.rankNow)) : ''].filter(Boolean).join(' · ');
     return now ? '<span class="jcr"><b>' + now + '</b></span>' : '';
   }
   function toPatent(r) {
@@ -122,7 +109,7 @@
     var date = reg ? r[9] : r[7];
     return { id: r[0], div: r[1], status: r[2], country: r[3], title: r[4], authors: r[5],
              num: reg ? r[8] : r[6], date: date, year: (String(date).match(/\d{4}/) || [''])[0],
-             link: r[10] || LINKS[r[0]] || '' };
+             link: r[10] };
   }
   function toProject(r) {
     return { id: r[0], ko: r[1], en: r[2], prog: r[3], agency: r[4], key: (r[5] || '').toLowerCase(),
