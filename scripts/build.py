@@ -102,5 +102,23 @@ def build():
         print("built", f"{key}.html")
 
 
+def sitemap():
+    """검색엔진용 sitemap.xml과 robots.txt를 만듭니다 (SITE_URL이 있을 때)."""
+    if not SITE_URL:
+        return
+    import datetime
+    base = SITE_URL.rstrip("/") + "/"
+    today = datetime.date.today().isoformat()
+    pages = [""] + [f"{k}.html" for k, _ in NAV[1:]]
+    urls = "\n".join(f"  <url><loc>{base}{p}</loc><lastmod>{today}</lastmod></url>" for p in pages)
+    (ROOT / "sitemap.xml").write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + "\n</urlset>\n",
+        encoding="utf-8")
+    (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {base}sitemap.xml\n", encoding="utf-8")
+    print("built sitemap.xml, robots.txt")
+
+
 if __name__ == "__main__":
     build()
+    sitemap()
