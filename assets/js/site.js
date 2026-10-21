@@ -143,7 +143,7 @@
   function pubItem(p, q) {
     var url = doiUrl(p.doi);
     var title = url
-      ? '<a class="pub-title" href="' + esc(url) + '" target="_blank" rel="noopener">' + highlight(p.title, q) + '</a>'
+      ? '<a class="pub-title" href="' + esc(url) + '" target="_blank" rel="noopener">' + highlight(p.title, q) + '<span class="ext-ic" aria-hidden="true"> ↗</span></a>'
       : '<span class="pub-title">' + highlight(p.title, q) + '</span>';
     var det = paperDetail(p);
     return title +
@@ -157,7 +157,7 @@
     var det = [num, t.date ? dotDate(t.date) : ''].filter(Boolean).join(', ');
     var url = doiUrl(t.link);
     var title = url
-      ? '<a class="pub-title" href="' + esc(url) + '" target="_blank" rel="noopener">' + highlight(t.title, q) + '</a>'
+      ? '<a class="pub-title" href="' + esc(url) + '" target="_blank" rel="noopener">' + highlight(t.title, q) + '<span class="ext-ic" aria-hidden="true"> ↗</span></a>'
       : '<span class="pub-title">' + highlight(t.title, q) + '</span>';
     return title +
       '<span class="pub-authors">' + highlight(t.authors, q, true) + '</span>' +
@@ -373,9 +373,12 @@
     var head = '<div class="tl-head"><div></div><div class="tl-years" style="grid-template-columns:repeat(' + (Y1 - Y0) + ',1fr)">';
     for (var y = Y0; y < Y1; y++) head += '<span>' + y + '</span>';
     head += '</div></div>';
-    var rows = list.slice().sort(function (a, b) { return String(a.start).localeCompare(String(b.start)); }).map(function (p) {
+    // 최근에 시작한 과제가 위로: 진행 중인 과제가 먼저 보이고, 아래로 갈수록 과거 이력
+    var rows = list.slice().sort(function (a, b) {
+      return String(b.start).localeCompare(String(a.start)) || String(b.end).localeCompare(String(a.end));
+    }).map(function (p) {
       var l = pos(p.start), r = pos(p.end) + 100 / span;
-      return '<div class="tl-row"><div class="nm">' + esc(p.ko) + '<small>' + esc(p.agency) + ' · ' + esc(ym(p.start)) + '–' + esc(ym(p.end)) + '</small></div>' +
+      return '<div class="tl-row"><div class="nm">' + esc(p.ko) + '<small><span class="nowrap">' + esc(ym(p.start)) + '–' + esc(ym(p.end)) + '</span> · ' + esc(p.agency) + '</small></div>' +
         '<div class="tl-track" style="' + grid + '"><div class="tl-now" style="left:' + nowPos + '%"></div>' +
         '<div class="tl-bar' + (/책임/.test(p.role) ? ' pi' : '') + '" style="left:' + l + '%;width:' + Math.max(.8, r - l) + '%" title="' + esc(p.role) + '"></div></div></div>';
     }).join('');
