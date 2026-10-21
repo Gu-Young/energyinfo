@@ -1,0 +1,16 @@
+ID,과제명(국문),과제명(영문),사업명,전문기관,기관 마크,시작,종료,역할,"상태
+(자동)"
+PR-001,AI 기반 비송전 대안(NWA) 통합운영 및 설비진단 융합기술 지역에너지혁신센터,"Regional Energy Innovation Center for AI-Based Convergence Technology in Integrated Operation, Diagnostics, and Prognostics of Non-Wires Alternatives (NWA)",,한국에너지기술평가원 (KETEP),ketep,2026-04,2032-12,참여연구자,진행 중
+PR-002,그래프 기반 케이블 네트워크 상태 진단 기법 연구,Graph-Based Condition Diagnosis Method for Cable Networks,,국립공주대학교,knu,2026-04,2027-02,연구책임자,진행 중
+PR-003,한국-헝가리 배터리협력연구센터 설립 지원,Establishing Institutional and Operational Framework of the Korea-Hungary Battery Cooperation Research Center,한국-헝가리 경제혁신 파트너십 프로그램,한국개발연구원 (KDI),kdi,2026-03,2026-11,참여연구자,진행 중
+PR-004,AI 딥러닝 기반 비전 응용 반도체 및 디스플레이 부품 검사 모듈 개발,AI-Based Deep Learning Vision Inspection Module for Semiconductor and Display Components,,국립공주대학교 SW중심대학사업단,knu,2026-02,2026-11,연구책임자,진행 중
+PR-005,실시간 고장구간 및 고장점탐지 하드웨어 장치사양 검토 및 상세 설계,Detailed Design and Hardware Specification Review for a Real-Time Fault Section Identification and Fault Location System,,한국전력 전력연구원,kepco,2025-11,2027-04,참여연구자,진행 중
+PR-006,딥러닝 기반 반도체 부품 검사 기술 개발,Development of Deep Learning-Based Semiconductor Inspection Technique,,국립공주대학교 SW중심대학사업단,knu,2025-03,2025-11,연구책임자,완료
+PR-007,한국-헝가리 배터리협력연구센터 설립 및 시범운영 방안 마련,Establishment and Pilot Operation Plan for Korea-Hungary Battery Cooperation Research Center in Hungary,한국-헝가리 경제혁신 파트너십 프로그램,한국개발연구원 (KDI),kdi,2024-12,2025-11,참여연구자,완료
+PR-008,인공지능 기반 공장 이상 모니터링 및 시뮬레이션 기술 개발,Development of AI-Based Technologies for Industrial Anomaly Monitoring and Simulation,,한국전자통신연구원 (ETRI),etri,2024-06,2024-11,참여연구자,완료
+PR-009,반사파계측법 기반 케이블 건전성 지표 개발,Development of Cable Health Index Based on Reflectometry,,국립공주대학교,knu,2024-03,2025-02,연구책임자,완료
+PR-010,전기차 배터리 전주기 관리 체계 구축,Development of Battery Life Cycle Management and Traceability System,한국-헝가리 경제혁신 파트너십 프로그램,한국개발연구원 (KDI),kdi,2024-02,2024-10,참여연구자,완료
+PR-011,인공지능 및 데이터 기반 디지털 트윈 모델 예측 및 3D 가시화 기능 개발,Development of AI- and Data-Driven Digital Twin Prediction Models and 3D Visualization Capabilities,,한국전자통신연구원 (ETRI),etri,2023-10,2023-11,연구책임자,완료
+PR-012,반사파 기반 케이블 열화 데이터 수집 및 VLF 진단 상관성 비교 분석,Acquisition of Reflectometry-Based Cable Degradation Data and Correlation Analysis with VLF Diagnostic Results,,한국전력 전력연구원,kepco,2022-11,2023-08,연구책임자,완료
+PR-013,딥러닝 기반 산업용 로봇 케이블 진단 기술 개발,Development of Deep Learning Based Industrial Robot Cable Diagnostics,,한국연구재단 (NRF),nrf,2022-03,2027-02,연구책임자,진행 중
+PR-014,인공지능 기반 케이블 네트워크 고장 구간 및 정도 추정 기술 개발,Development of AI-Based Fault Section Identification and Severity Estimation Technologies for Cable Networks,,동국대학교,dongguk,2021-09,2024-08,연구책임자,완료
