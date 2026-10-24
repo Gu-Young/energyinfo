@@ -256,20 +256,14 @@
     });
   }
   function homePubs(el) {
-    var list = null;
-    function draw() {
-      if (!list) return;
+    load('papers', function (rows) {
+      var list = sortPapers(rows.map(toPaper).filter(function (p) { return p.kind === '국제 저널'; })).slice(0, 4);
       el.innerHTML = list.map(function (p) {
         return '<li><span class="yr">' + esc(p.year) + '</span><div class="pub-body">' + pubItem(p) + '</div></li>';
       }).join('');
       setBusy(el, false);
       reveal(el);
-    }
-    load('papers', function (rows) {
-      list = sortPapers(rows.map(toPaper).filter(function (p) { return p.kind === '국제 저널'; })).slice(0, 4);
-      draw();
     });
-    load('members', function (rows) { setMembers(rows.map(toMember)); draw(); });
   }
   function homeProjects(el) {
     load('projects', function (rows) {
@@ -281,21 +275,9 @@
   }
 
   /* ---------- Publications ---------- */
-  // 저자 목록에서 연구실 구성원 이름을 굵게 표시합니다 (교수 + 구성원 탭의 이름).
-  var memberRe = null;
-  function initials(en) {
-    var parts = String(en || '').trim().split(/\s+/);
-    if (parts.length < 2) return [];
-    var last = parts.pop();
-    var giv = parts.join(' ').split(/[\s-]+/).map(function (x) { return x.charAt(0).toUpperCase() + '.'; });
-    return [giv.join(' ') + ' ' + last, giv.join('-') + ' ' + last];
-  }
+  // 저자 목록에서 교수 이름만 굵게 표시합니다.
+  var memberRe = /(G\.-Y\. Kwon|권구영)/g;
   function reEsc(s) { return String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
-  function setMembers(list) {
-    var names = ['G.-Y. Kwon', '권구영'];
-    list.forEach(function (m) { if (m.name) names.push(m.name); names = names.concat(initials(m.en)); });
-    memberRe = new RegExp('(' + names.filter(Boolean).map(reEsc).join('|') + ')', 'g');
-  }
   function highlight(s, q, members) {
     s = esc(s);
     if (members && memberRe) s = s.replace(memberRe, '<b>$1</b>');
@@ -370,7 +352,6 @@
     input.addEventListener('input', draw);
     load('papers', function (rows) { papers = rows.map(toPaper); draw(); });
     load('patents', function (rows) { patents = rows.map(toPatent); draw(); });
-    load('members', function (rows) { setMembers(rows.map(toMember)); draw(); });
     window.addEventListener('hashchange', function () { current = hashKey(KINDS, current); draw(); });
   }
 
